@@ -1,3 +1,5 @@
+# requests.exceptions.SSLError: HTTPSConnectionPool(host='static-maps.yandex.ru', port=443): Max retries exceeded with url: /1.x/?ll=37.615%2C55.752&l=map&z=10 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))
+
 import sys
 from PyQt6 import uic
 from PyQt6.QtGui import QPixmap, QImage
