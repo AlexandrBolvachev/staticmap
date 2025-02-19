@@ -15,8 +15,8 @@ class MainWindow(QMainWindow):
         uic.loadUi('map.ui', self)
         self.press_delta = 0.005
 
-        self.map_zoom = 10
-        self.map_ll = [37.615, 55.752]
+        self.map_zoom = 0
+        self.map_ll = [55, 88.999]
         self.map_l = 'map'
         self.map_key = ''
         self.refresh_map()
@@ -26,13 +26,17 @@ class MainWindow(QMainWindow):
             self.map_zoom += 1
         if event.key() == Qt.Key.Key_PageDown and self.map_zoom > 0:
             self.map_zoom -= 1
-        if event.key() == Qt.Key.Key_Up:
+        if event.key() == Qt.Key.Key_Up and self.map_ll[1] <= 89:
             self.map_ll[1] += self.press_delta
-        if event.key() == Qt.Key.Key_Down:
+        if event.key() == Qt.Key.Key_Down and self.map_ll[1] >= -89:
             self.map_ll[1] -= self.press_delta
         if event.key() == Qt.Key.Key_Left:
+            if self.map_ll[0] <= -180:
+                self.map_ll[0] = -self.map_ll[0]
             self.map_ll[0] -= self.press_delta
         if event.key() == Qt.Key.Key_Right:
+            if self.map_ll[0] >= 180:
+                self.map_ll[0] = -self.map_ll[0]
             self.map_ll[0] += self.press_delta
         self.refresh_map()
 
