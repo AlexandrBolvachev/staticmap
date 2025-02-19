@@ -16,7 +16,7 @@ class MainWindow(QMainWindow):
         self.press_delta = 0.005
 
         self.map_zoom = 0
-        self.map_ll = [55, 88.999]
+        self.map_ll = [55.372, 60.000]
         self.map_l = 'map'
         self.map_key = ''
         self.refresh_map()
