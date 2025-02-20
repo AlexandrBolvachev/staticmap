@@ -1,4 +1,5 @@
 import sys
+
 from PyQt6 import uic
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap, QImage
@@ -13,12 +14,25 @@ class MainWindow(QMainWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         uic.loadUi('map.ui', self)
-        self.press_delta = 0.005
 
-        self.map_zoom = 0
-        self.map_ll = [55.372, 60.000]
+        self.press_delta = 0.005
+        self.map_zoom = 10
+        self.map_ll = [55.000, 60.000]
         self.map_l = 'map'
         self.map_key = ''
+        self.theme = 'light'
+
+        self.refresh_map()
+
+        self.dark.clicked.connect(self.dark_theme)
+        self.light.clicked.connect(self.light_theme)
+
+    def dark_theme(self):
+        self.theme = 'dark'
+        self.refresh_map()
+
+    def light_theme(self):
+        self.theme = 'light'
         self.refresh_map()
 
     def keyPressEvent(self, event):
@@ -44,15 +58,17 @@ class MainWindow(QMainWindow):
         map_params = {
             'll': ','.join(map(str, self.map_ll)),
             'l': self.map_l,
-            'z': self.map_zoom
+            'z': self.map_zoom,
+            'theme': self.theme
         }
         map_api_server = "https://static-maps.yandex.ru/1.x/"
         response = requests.get(map_api_server, params=map_params)
 
+        print(response.content)
+
         pixmap = QImage()
         pixmap.loadFromData(response.content)
         self.g_map.setPixmap(QPixmap.fromImage(pixmap))
-
 
 def except_hook(cls, exception, traceback):
     sys.__excepthook__(cls, exception, traceback)
