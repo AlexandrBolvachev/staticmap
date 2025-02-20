@@ -20,6 +20,7 @@ class MainWindow(QMainWindow):
         self.map_l = 'map'
         self.map_key = ''
         self.theme = 'light'
+        self.apikey = "f3a0fe3a-b07e-4840-a1da-06f18b2ddf13"
 
         self.refresh_map()
 
@@ -58,9 +59,10 @@ class MainWindow(QMainWindow):
             'll': ','.join(map(str, self.map_ll)),
             'l': self.map_l,
             'z': self.map_zoom,
-            'theme': self.theme
+            'theme': self.theme,
+            'apikey': self.apikey
         }
-        map_api_server = "https://static-maps.yandex.ru/1.x/"
+        map_api_server = "https://static-maps.yandex.ru/v1"
         response = requests.get(map_api_server, params=map_params)
 
         print(response.content)
