@@ -7,7 +7,6 @@ from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel
 
 import requests
 
-
 class MainWindow(QMainWindow):
     g_map: QLabel
 
